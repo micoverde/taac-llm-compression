@@ -25,6 +25,13 @@ At aggressive compression (r <= 0.4), function signatures are stripped despite e
 ### 4. TAAC Algorithm
 Quality-gated compression achieving **21.8% cost reduction** with **95.6% quality preservation**.
 
+### 5. Article 3: Ultra-Compression Strategies (NEW)
+Building on the Function Identity Collapse finding, we explore recovery strategies:
+- **Experiment 3A (Signature Preservation):** Post-compression signature injection to recover quality at r=0.3
+- **Experiment 3B (Task Classification):** Identify task categories that tolerate r<=0.4
+- **Experiment 3C (Cross-Model Generalization):** Validate findings across Claude, GPT-4, DeepSeek
+- **Experiment 3D (Hybrid Routing):** Dynamic compression ratio selection based on task type
+
 ## Repository Structure
 
 ```
@@ -40,6 +47,14 @@ Quality-gated compression achieving **21.8% cost reduction** with **95.6% qualit
 │   ├── mbpp_experiment_results.jsonl  # MBPP validation data
 │   ├── mbpp_analysis_report.md        # Current MBPP findings
 │   └── perplexity_analysis/
+├── experiments/                   # Article 3: Ultra-Compression Experiments
+│   ├── EXPERIMENT_3A_DESIGN.md    # Signature Preservation design
+│   ├── EXPERIMENT_3B_DESIGN.md    # Task Classification Analysis design
+│   ├── EXPERIMENT_3C_DESIGN.md    # Cross-Model Generalization design
+│   ├── EXPERIMENT_3D_DESIGN.md    # Hybrid Routing design
+│   ├── signature_preservation.py  # Exp 3A implementation
+│   ├── task_classification_analysis.py  # Exp 3B implementation
+│   └── energy_cost_model.py       # Enterprise-scale cost/energy model
 └── requirements.txt               # Dependencies
 ```
 
@@ -69,6 +84,18 @@ python taac_algorithm.py --mode evaluate
 ### 4. Run MBPP Benchmark
 ```bash
 python mbpp_experiment.py --mode run --models validation --sample-size 300
+```
+
+### 5. Run Article 3 Experiments
+```bash
+# Experiment 3A: Signature Preservation
+python experiments/signature_preservation.py --sample-size 300 --ratios 0.3 0.4 0.5
+
+# Experiment 3B: Task Classification Analysis
+python experiments/task_classification_analysis.py --results-file results/mbpp_results.jsonl
+
+# Energy and Cost Modeling
+python experiments/energy_cost_model.py --daily-calls 1000000000
 ```
 
 ## MBPP Experiment Results (In Progress)
