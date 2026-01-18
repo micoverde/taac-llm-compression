@@ -19,14 +19,13 @@ import argparse
 import json
 import logging
 import os
+import re
 import subprocess
-import sys
 import tempfile
 import time
-from dataclasses import dataclass, field, asdict
+from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Optional
 
 import numpy as np
 
@@ -109,17 +108,37 @@ logger = logging.getLogger(__name__)
 # MBPP Prompt Templates
 # =============================================================================
 
-# Match HumanEval format for consistency
+# BUG 2 FIX: Include function signature in prompt so model knows expected function name
+# MBPP tests expect specific function names that can't be guessed from description alone
 MBPP_PROMPT_TEMPLATE = """You are an expert Python programmer. Write a Python function that solves the following problem.
 
 Problem Description:
 {description}
 
-Write ONLY the Python function implementation. Do not include any explanations, comments, or test cases.
+Required Function Signature:
+{function_signature}
+
+Write ONLY the Python function implementation starting with the signature above.
+Do not include any explanations, comments, or test cases.
 The function should be complete and ready to execute.
 
 Function:
 """
+
+
+def extract_function_signature(code: str) -> str:
+    """Extract function signature from reference solution code.
+
+    BUG 2 FIX: MBPP tests expect specific function names like 'similar_elements'.
+    Without the signature, the model can't know what function name to use,
+    leading to NameError in tests.
+    """
+    # Match 'def function_name(args):' pattern
+    match = re.search(r"def\s+\w+\s*\([^)]*\)\s*:", code)
+    if match:
+        return match.group(0)
+    return "def solve():"  # Fallback
+
 
 # Extended template with examples (for ablation)
 MBPP_PROMPT_WITH_EXAMPLES = """You are an expert Python programmer. Write a Python function that solves the following problem.
@@ -127,10 +146,14 @@ MBPP_PROMPT_WITH_EXAMPLES = """You are an expert Python programmer. Write a Pyth
 Problem Description:
 {description}
 
+Required Function Signature:
+{function_signature}
+
 Example test cases (DO NOT include these in your solution):
 {test_examples}
 
-Write ONLY the Python function implementation. Do not include any explanations, comments, or test cases.
+Write ONLY the Python function implementation starting with the signature above.
+Do not include any explanations, comments, or test cases.
 The function should be complete and ready to execute.
 
 Function:
@@ -147,16 +170,25 @@ class MBPPProblem:
     test_list: list[str]  # Test assertions
 
     @property
+    def function_signature(self) -> str:
+        """Extract function signature from reference solution."""
+        return extract_function_signature(self.code)
+
+    @property
     def prompt(self) -> str:
         """Generate prompt for this problem."""
-        return MBPP_PROMPT_TEMPLATE.format(description=self.description)
+        return MBPP_PROMPT_TEMPLATE.format(
+            description=self.description, function_signature=self.function_signature
+        )
 
     @property
     def prompt_with_examples(self) -> str:
         """Generate prompt with example tests."""
         examples = "\n".join(self.test_list[:2])  # First 2 tests as examples
         return MBPP_PROMPT_WITH_EXAMPLES.format(
-            description=self.description, test_examples=examples
+            description=self.description,
+            function_signature=self.function_signature,
+            test_examples=examples,
         )
 
 
@@ -183,7 +215,7 @@ class TrialResult:
 
     # Evaluation metrics
     passed: bool
-    error: Optional[str] = None
+    error: str | None = None
     execution_time_ms: float = 0.0
 
     # Timestamps
@@ -195,12 +227,10 @@ class ExperimentConfig:
     """Configuration for MBPP experiment."""
 
     name: str = "MBPP Benchmark Expansion"
-    compression_ratios: list[float] = field(
-        default_factory=lambda: COMPRESSION_RATIOS
-    )
+    compression_ratios: list[float] = field(default_factory=lambda: COMPRESSION_RATIOS)
     models: list[str] = field(default_factory=lambda: MODELS_VALIDATION)
     trials_per_problem: int = 1  # MBPP has 974 problems, so 1 trial each
-    sample_size: Optional[int] = None  # None = full 974, or subset for testing
+    sample_size: int | None = None  # None = full 974, or subset for testing
     random_seed: int = 42
     checkpoint_every: int = 50
     parallel_workers: int = 1  # Sequential for reproducibility
@@ -216,9 +246,9 @@ class MBPPLoader:
 
     def __init__(self, split: str = "test"):
         self.split = split
-        self._data: Optional[list[MBPPProblem]] = None
+        self._data: list[MBPPProblem] | None = None
 
-    def load(self, sample_size: Optional[int] = None) -> list[MBPPProblem]:
+    def load(self, sample_size: int | None = None) -> list[MBPPProblem]:
         """Load MBPP problems."""
         if self._data is not None:
             if sample_size:
@@ -290,8 +320,8 @@ class CompressionEngine:
 
     def compress(self, prompt: str, ratio: float) -> dict:
         """Compress a prompt to target ratio."""
-        self.load()
-
+        # BUG 1 FIX: Check ratio FIRST before loading compressor
+        # This avoids loading llmlingua unnecessarily for r=1.0 baseline
         if ratio >= 1.0:
             return {
                 "compressed_prompt": prompt,
@@ -300,6 +330,9 @@ class CompressionEngine:
                 "compressed_tokens": len(prompt.split()),
                 "compression_time_ms": 0.0,
             }
+
+        # Only load compressor if we actually need to compress
+        self.load()
 
         start = time.time()
 
@@ -388,9 +421,7 @@ class ModelClient:
 
         logger.info(f"Initialized client for {self.model_name}")
 
-    def generate(
-        self, prompt: str, max_tokens: int = 1024, temperature: float = 0.0
-    ) -> dict:
+    def generate(self, prompt: str, max_tokens: int = 1024, temperature: float = 0.0) -> dict:
         """Generate completion."""
         self.load()
 
@@ -465,36 +496,92 @@ class MBPPEvaluator:
         self.timeout = timeout
 
     def extract_code(self, output: str) -> str:
-        """Extract code from model output."""
-        # Try markdown code blocks
-        if "```python" in output:
-            start = output.find("```python") + 9
-            end = output.find("```", start)
-            if end > start:
-                return output[start:end].strip()
-        elif "```" in output:
-            start = output.find("```") + 3
-            end = output.find("```", start)
-            if end > start:
-                return output[start:end].strip()
+        """Extract code from model output.
 
-        # Return as-is
+        BUG 3 FIX: Improved code extraction to handle various output formats:
+        - Multiple code blocks (take the last complete one)
+        - Python-tagged and untagged code blocks
+        - Raw code starting with 'def'
+        - Code with preamble text
+        """
+        if not output:
+            return ""
+
+        # Try python-tagged markdown blocks (prefer these, take last one)
+        python_blocks = re.findall(r"```python\n(.*?)```", output, re.DOTALL)
+        if python_blocks:
+            return python_blocks[-1].strip()
+
+        # Try untagged markdown blocks
+        generic_blocks = re.findall(r"```\n(.*?)```", output, re.DOTALL)
+        if generic_blocks:
+            return generic_blocks[-1].strip()
+
+        # Try any code block with optional language tag
+        any_blocks = re.findall(r"```\w*\n?(.*?)```", output, re.DOTALL)
+        if any_blocks:
+            return any_blocks[-1].strip()
+
+        # Look for code starting with 'def ' (function definition)
+        lines = output.split("\n")
+        code_lines = []
+        in_function = False
+
+        for line in lines:
+            stripped = line.rstrip()
+
+            # Start of a function definition
+            if stripped.startswith("def "):
+                in_function = True
+                code_lines = [line]  # Reset to capture this function
+                continue
+
+            if in_function:
+                if stripped == "":
+                    code_lines.append(line)
+                elif line.startswith(" ") or line.startswith("\t"):
+                    code_lines.append(line)
+                else:
+                    # Non-indented non-empty line ends the function
+                    # Unless it's another def (multi-function output)
+                    if stripped.startswith("def "):
+                        code_lines.append(line)
+                    else:
+                        break
+
+        if code_lines:
+            return "\n".join(code_lines).strip()
+
+        # Fallback: return as-is
         return output.strip()
 
     def evaluate(self, generated_code: str, problem: MBPPProblem) -> dict:
         """Evaluate generated code against problem test cases."""
         code = self.extract_code(generated_code)
 
-        # Combine code with test assertions
+        # BUG 4 FIX: Add common imports that MBPP tests may require
+        # Many MBPP problems use standard library functions without explicit import
+        setup_code = """import math
+import re
+import sys
+import collections
+from collections import Counter, defaultdict, OrderedDict
+from itertools import combinations, permutations, product, groupby
+from functools import reduce
+import heapq
+import bisect
+import operator
+import copy
+"""
+
+        # Combine setup, code, and test assertions
         test_code = "\n".join(problem.test_list)
-        full_code = f"{code}\n\n{test_code}"
+        full_code = f"{setup_code}\n{code}\n\n{test_code}"
 
         start = time.time()
 
         try:
-            with tempfile.NamedTemporaryFile(
-                mode="w", suffix=".py", delete=False
-            ) as f:
+            with tempfile.NamedTemporaryFile(mode="w", suffix=".py", delete=False) as f:
                 f.write(full_code)
                 f.flush()
 
@@ -565,9 +652,7 @@ class MBPPExperimentRunner:
             with open(self.checkpoint_file) as f:
                 data = json.load(f)
                 self.completed_trials = set(data.get("completed", []))
-            logger.info(
-                f"Loaded checkpoint: {len(self.completed_trials)} completed trials"
-            )
+            logger.info(f"Loaded checkpoint: {len(self.completed_trials)} completed trials")
 
     def _save_checkpoint(self):
         """Save checkpoint."""
@@ -593,7 +678,7 @@ class MBPPExperimentRunner:
         try:
             problems = self.loader.load(self.config.sample_size)
             n_problems = len(problems)
-        except Exception as e:
+        except Exception:
             if use_known_size:
                 # MBPP test split has 500 problems, but full has 974
                 # Use sample_size if specified, otherwise known full size
@@ -652,15 +737,11 @@ class MBPPExperimentRunner:
         compression_result = self.compressor.compress(problem.prompt, ratio)
 
         # Generate code
-        generation_result = client.generate(
-            compression_result["compressed_prompt"]
-        )
+        generation_result = client.generate(compression_result["compressed_prompt"])
 
         # Evaluate if generation succeeded
         if generation_result["success"]:
-            eval_result = self.evaluator.evaluate(
-                generation_result["content"], problem
-            )
+            eval_result = self.evaluator.evaluate(generation_result["content"], problem)
         else:
             eval_result = {"passed": False, "error": "Generation failed"}
 
@@ -709,17 +790,13 @@ class MBPPExperimentRunner:
 
             for ratio in self.config.compression_ratios:
                 for problem in problems:
-                    trial_key = self._trial_key(
-                        problem.task_id, ratio, model_name
-                    )
+                    trial_key = self._trial_key(problem.task_id, ratio, model_name)
 
                     if trial_key in self.completed_trials:
                         continue
 
                     try:
-                        result = self.run_trial(
-                            problem, ratio, model_name, client
-                        )
+                        result = self.run_trial(problem, ratio, model_name, client)
 
                         # Save result
                         with open(self.results_file, "a") as f:
@@ -740,10 +817,7 @@ class MBPPExperimentRunner:
                             self._save_checkpoint()
                             elapsed = time.time() - start_time
                             rate = trial_count / elapsed * 3600
-                            logger.info(
-                                f"Checkpoint: {trial_count} trials "
-                                f"({rate:.0f}/hour)"
-                            )
+                            logger.info(f"Checkpoint: {trial_count} trials ({rate:.0f}/hour)")
 
                     except Exception as e:
                         logger.error(f"Trial failed: {trial_key}: {e}")
@@ -810,14 +884,12 @@ def analyze_results(results_file: Path) -> dict:
     if above_threshold:
         analysis["threshold_analysis"]["above_0.6"] = {
             "n": len(above_threshold),
-            "pass_rate": sum(1 for r in above_threshold if r["passed"])
-            / len(above_threshold),
+            "pass_rate": sum(1 for r in above_threshold if r["passed"]) / len(above_threshold),
         }
     if below_threshold:
         analysis["threshold_analysis"]["below_0.6"] = {
             "n": len(below_threshold),
-            "pass_rate": sum(1 for r in below_threshold if r["passed"])
-            / len(below_threshold),
+            "pass_rate": sum(1 for r in below_threshold if r["passed"]) / len(below_threshold),
         }
 
     return analysis
@@ -841,9 +913,7 @@ def compare_with_humaneval(mbpp_analysis: dict, humaneval_baseline: dict) -> dic
     for ratio in COMPRESSION_RATIOS:
         if ratio in mbpp_analysis.get("by_ratio", {}):
             mbpp_rate = mbpp_analysis["by_ratio"][ratio]["pass_rate"]
-            he_rate = humaneval_baseline.get("by_ratio", {}).get(ratio, {}).get(
-                "pass_rate"
-            )
+            he_rate = humaneval_baseline.get("by_ratio", {}).get(ratio, {}).get("pass_rate")
             comparison["pass_rate_comparison"][ratio] = {
                 "mbpp": mbpp_rate,
                 "humaneval": he_rate,
@@ -920,9 +990,7 @@ def analyze_mbpp_prompt_structure() -> dict:
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="MBPP Benchmark Expansion Experiment"
-    )
+    parser = argparse.ArgumentParser(description="MBPP Benchmark Expansion Experiment")
     parser.add_argument(
         "--mode",
         choices=["estimate", "run", "analyze", "prompt-analysis"],
@@ -1012,9 +1080,13 @@ def main():
         print(f"\nDocstring rate: {analysis['docstring_rate']:.1%}")
         print(f"Complex problem rate: {analysis['complex_problem_rate']:.1%}")
         print("\nThreshold prediction:")
-        print(f"  Expected threshold: r >= {analysis['threshold_prediction']['expected_threshold']}")
+        print(
+            f"  Expected threshold: r >= {analysis['threshold_prediction']['expected_threshold']}"
+        )
         print(f"\n  Rationale: {analysis['threshold_prediction']['rationale']}")
-        print(f"\n  Compression sensitivity: {analysis['threshold_prediction']['compression_sensitivity']}")
+        print(
+            f"\n  Compression sensitivity: {analysis['threshold_prediction']['compression_sensitivity']}"
+        )
 
 
 if __name__ == "__main__":
