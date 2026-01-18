@@ -1,0 +1,139 @@
+{
+  "sample_info": {
+    "n_code": 300,
+    "n_cot": 300,
+    "matching_method": "bin_matching",
+    "ks_statistic": 1.0,
+    "ks_pvalue": 1.7948415244134565e-133,
+    "length_matched": false
+  },
+  "anova": {
+    "task_effect": {
+      "F": 78.21666925110857,
+      "p": 0.1477913440083144,
+      "df": [
+        1,
+        590
+      ],
+      "eta_squared": 0.06544502514825283,
+      "partial_eta_squared": 0.11705285553377238,
+      "SS": 5.950104166666669
+    },
+    "compression_effect": {
+      "F": 101.15890838092581,
+      "p": 0.0011865449071825074,
+      "df": [
+        4,
+        590
+      ],
+      "eta_squared": 0.338564521672759,
+      "partial_eta_squared": 0.40681795411873345,
+      "SS": 30.781471418601356
+    },
+    "interaction": {
+      "F": 30.57460554686538,
+      "p": 0.0001975757470952244,
+      "df": [
+        4,
+        590
+      ],
+      "eta_squared": 0.10232886918202058,
+      "partial_eta_squared": 0.17169548377193403,
+      "SS": 9.303494490390367
+    },
+    "error": {
+      "df": 590,
+      "SS": 44.88252302156908,
+      "MS": 0.0760720729179137
+    },
+    "total": {
+      "SS": 90.91759309722747,
+      "n": 600
+    }
+  },
+  "effect_sizes": {
+    "by_compression": {
+      "0.3": {
+        "cohens_d": 2.142977652994741,
+        "interpretation": "large"
+      },
+      "0.4": {
+        "cohens_d": 1.0150621864017335,
+        "interpretation": "large"
+      },
+      "0.5": {
+        "cohens_d": 0.2587194063348859,
+        "interpretation": "small"
+      },
+      "0.6": {
+        "cohens_d": -0.15946899365519934,
+        "interpretation": "negligible"
+      }
+    },
+    "overall": {
+      "cohens_d": 0.5219180565153873,
+      "code_mean": 0.8425,
+      "cot_mean": 0.6433333333333333
+    }
+  },
+  "compression_curves": {
+    "code": {
+      "0.3": {
+        "quality": 0.7006578947368421,
+        "success_rate": 42.10526315789473
+      },
+      "0.4": {
+        "quality": 0.7402597402597403,
+        "success_rate": 53.246753246753244
+      },
+      "0.5": {
+        "quality": 0.9466666666666667,
+        "success_rate": 89.33333333333333
+      },
+      "0.6": {
+        "quality": 0.9930555555555556,
+        "success_rate": 98.61111111111111
+      }
+    },
+    "cot": {
+      "0.3": {
+        "quality": 0.1,
+        "success_rate": 10.0
+      },
+      "0.4": {
+        "quality": 0.35,
+        "success_rate": 35.0
+      },
+      "0.5": {
+        "quality": 0.8833333333333333,
+        "success_rate": 88.33333333333333
+      },
+      "0.6": {
+        "quality": 1.0,
+        "success_rate": 100
+      },
+      "0.7": {
+        "quality": 0.8833333333333333,
+        "success_rate": 88.33333333333333
+      }
+    }
+  },
+  "ancova": {
+    "length_quality_correlation": -0.312155678558099,
+    "regression_slope": -0.006013587192302434,
+    "regression_intercept": 1.1479600871817879,
+    "residual_anova_interaction": {
+      "F": 57.842781945509785,
+      "p": 0.00010786115782579486,
+      "eta_squared": 0.08123586521187956
+    },
+    "effect_sizes_residual": {
+      "0.3": 1.512679697595414,
+      "0.4": 0.2016968001913035,
+      "0.5": -0.35809276173105764,
+      "0.6": -0.34760113446212504,
+      "0.7": 0.09600400776373809,
+      "1.0": -2.500254013702352
+    }
+  }
+}

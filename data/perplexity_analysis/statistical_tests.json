@@ -1,0 +1,42 @@
+{
+  "H1_syntax_vs_content": {
+    "error": "Insufficient samples"
+  },
+  "H2_numbers_in_cot": {
+    "hypothesis": "H2: Number perplexity < Content perplexity (CoT)",
+    "numbers_mean": 9929.730943824583,
+    "numbers_std": 61227.09882744549,
+    "numbers_n": 50,
+    "content_mean": 11696.800989939085,
+    "content_std": 108283.22619399798,
+    "content_n": 105,
+    "t_statistic": -0.12845114645258818,
+    "p_value": 0.4489830549299178,
+    "cohens_d": -0.02008941361198088,
+    "significant": "False",
+    "interpretation": "Numbers are lower perplexity"
+  },
+  "H3_perplexity_retention": {
+    "hypothesis": "H3: Perplexity correlates with retention",
+    "correlation": 0.04598617436533575,
+    "p_value": 0.21714212512535072,
+    "significant": "False",
+    "kept_mean_perplexity": 143767.50671358377,
+    "removed_mean_perplexity": 2.025471432307271,
+    "n_kept": 359,
+    "n_removed": 363,
+    "interpretation": "Positive correlation (r=0.046), not significant"
+  },
+  "H4_task_type_interaction": {
+    "hypothesis": "H4: Perplexity-retention relationship differs by task",
+    "code_correlation": 0.057235727328476246,
+    "code_p_value": 0.2351689167764517,
+    "cot_correlation": 0.09505674308141439,
+    "cot_p_value": 0.10621834343990239,
+    "correlation_difference": -0.03782101575293814,
+    "z_difference": -0.49891325516444046,
+    "p_value_difference": 0.6178404955873327,
+    "significant_difference": "False",
+    "interpretation": "Code correlation: 0.057, CoT correlation: 0.095. Difference is not significant."
+  }
+}
