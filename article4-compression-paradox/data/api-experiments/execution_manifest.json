@@ -1,0 +1,259 @@
+{
+  "total_trials": 41904,
+  "batch_size": 1000,
+  "num_batches": 42,
+  "batches": [
+    {
+      "batch_id": "batch_001",
+      "start_idx": 0,
+      "end_idx": 1000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_002",
+      "start_idx": 1000,
+      "end_idx": 2000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_003",
+      "start_idx": 2000,
+      "end_idx": 3000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_004",
+      "start_idx": 3000,
+      "end_idx": 4000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_005",
+      "start_idx": 4000,
+      "end_idx": 5000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_006",
+      "start_idx": 5000,
+      "end_idx": 6000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_007",
+      "start_idx": 6000,
+      "end_idx": 7000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_008",
+      "start_idx": 7000,
+      "end_idx": 8000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_009",
+      "start_idx": 8000,
+      "end_idx": 9000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_010",
+      "start_idx": 9000,
+      "end_idx": 10000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_011",
+      "start_idx": 10000,
+      "end_idx": 11000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_012",
+      "start_idx": 11000,
+      "end_idx": 12000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_013",
+      "start_idx": 12000,
+      "end_idx": 13000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_014",
+      "start_idx": 13000,
+      "end_idx": 14000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_015",
+      "start_idx": 14000,
+      "end_idx": 15000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_016",
+      "start_idx": 15000,
+      "end_idx": 16000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_017",
+      "start_idx": 16000,
+      "end_idx": 17000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_018",
+      "start_idx": 17000,
+      "end_idx": 18000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_019",
+      "start_idx": 18000,
+      "end_idx": 19000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_020",
+      "start_idx": 19000,
+      "end_idx": 20000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_021",
+      "start_idx": 20000,
+      "end_idx": 21000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_022",
+      "start_idx": 21000,
+      "end_idx": 22000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_023",
+      "start_idx": 22000,
+      "end_idx": 23000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_024",
+      "start_idx": 23000,
+      "end_idx": 24000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_025",
+      "start_idx": 24000,
+      "end_idx": 25000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_026",
+      "start_idx": 25000,
+      "end_idx": 26000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_027",
+      "start_idx": 26000,
+      "end_idx": 27000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_028",
+      "start_idx": 27000,
+      "end_idx": 28000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_029",
+      "start_idx": 28000,
+      "end_idx": 29000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_030",
+      "start_idx": 29000,
+      "end_idx": 30000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_031",
+      "start_idx": 30000,
+      "end_idx": 31000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_032",
+      "start_idx": 31000,
+      "end_idx": 32000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_033",
+      "start_idx": 32000,
+      "end_idx": 33000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_034",
+      "start_idx": 33000,
+      "end_idx": 34000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_035",
+      "start_idx": 34000,
+      "end_idx": 35000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_036",
+      "start_idx": 35000,
+      "end_idx": 36000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_037",
+      "start_idx": 36000,
+      "end_idx": 37000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_038",
+      "start_idx": 37000,
+      "end_idx": 38000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_039",
+      "start_idx": 38000,
+      "end_idx": 39000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_040",
+      "start_idx": 39000,
+      "end_idx": 40000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_041",
+      "start_idx": 40000,
+      "end_idx": 41000,
+      "trial_count": 1000
+    },
+    {
+      "batch_id": "batch_042",
+      "start_idx": 41000,
+      "end_idx": 41904,
+      "trial_count": 904
+    }
+  ]
+}

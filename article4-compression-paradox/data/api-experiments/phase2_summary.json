@@ -1,0 +1,30 @@
+{
+  "completed": "2026-01-23T01:20:18.680263",
+  "trials": 600,
+  "by_compression": {
+    "full": {
+      "n": 150,
+      "mean_energy_j": 115.0276,
+      "mean_tokens": 304.5,
+      "energy_per_token_mj": 377.767
+    },
+    "medium": {
+      "n": 150,
+      "mean_energy_j": 112.0318,
+      "mean_tokens": 274.8,
+      "energy_per_token_mj": 407.754
+    },
+    "terse": {
+      "n": 150,
+      "mean_energy_j": 109.7672,
+      "mean_tokens": 269.7,
+      "energy_per_token_mj": 407.028
+    },
+    "minimal": {
+      "n": 150,
+      "mean_energy_j": 109.5303,
+      "mean_tokens": 251.6,
+      "energy_per_token_mj": 435.335
+    }
+  }
+}

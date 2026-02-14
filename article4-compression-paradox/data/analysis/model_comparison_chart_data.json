@@ -1,0 +1,177 @@
+{
+  "metadata": {
+    "analysis_date": "2026-01-24",
+    "dataset": "article4_results_snapshot_20260124_1642.jsonl",
+    "total_trials": 16270,
+    "models": ["gpt-4o-mini", "deepseek-chat"],
+    "compression_ratios": [0.3, 0.5, 0.7, 1.0]
+  },
+  "pass_rates_by_ratio": {
+    "gpt-4o-mini": {
+      "0.3": {"passed": 0, "total": 2034, "rate": 0.00},
+      "0.5": {"passed": 0, "total": 2034, "rate": 0.00},
+      "0.7": {"passed": 50, "total": 2034, "rate": 2.46},
+      "1.0": {"passed": 517, "total": 2034, "rate": 25.42}
+    },
+    "deepseek-chat": {
+      "0.3": {"passed": 6, "total": 2032, "rate": 0.30},
+      "0.5": {"passed": 4, "total": 2034, "rate": 0.20},
+      "0.7": {"passed": 10, "total": 2034, "rate": 0.49},
+      "1.0": {"passed": 539, "total": 2034, "rate": 26.50}
+    }
+  },
+  "statistical_significance": {
+    "0.3": {"chi_square": 6.0148, "p_value": "< 0.05", "significant": true, "favors": "deepseek-chat"},
+    "0.5": {"chi_square": 4.0039, "p_value": "< 0.05", "significant": true, "favors": "deepseek-chat"},
+    "0.7": {"chi_square": 27.0659, "p_value": "< 0.01", "significant": true, "favors": "gpt-4o-mini"},
+    "1.0": {"chi_square": 0.6190, "p_value": "> 0.05", "significant": false, "favors": "neither"},
+    "overall": {"chi_square": 0.0590, "p_value": "> 0.05", "significant": false, "favors": "neither"}
+  },
+  "cost_metrics": {
+    "gpt-4o-mini": {
+      "total_cost": 0.1527,
+      "total_trials": 8136,
+      "total_successes": 567,
+      "cost_per_trial": 0.00001876,
+      "cost_per_success": 0.000269,
+      "successes_per_dollar": 3714.35
+    },
+    "deepseek-chat": {
+      "total_cost": 0.7246,
+      "total_trials": 8134,
+      "total_successes": 559,
+      "cost_per_trial": 0.00008909,
+      "cost_per_success": 0.001296,
+      "successes_per_dollar": 771.41
+    },
+    "comparison": {
+      "cost_per_trial_ratio": 4.75,
+      "cost_per_success_ratio": 4.82,
+      "cost_effectiveness_ratio": 4.82,
+      "winner": "gpt-4o-mini"
+    }
+  },
+  "energy_metrics": {
+    "gpt-4o-mini": {
+      "total_energy_joules": 53.80,
+      "total_trials": 8136,
+      "total_successes": 567,
+      "energy_per_trial": 0.006613,
+      "energy_per_success": 0.0949,
+      "successes_per_joule": 10.5383
+    },
+    "deepseek-chat": {
+      "total_energy_joules": 931.69,
+      "total_trials": 8134,
+      "total_successes": 559,
+      "energy_per_trial": 0.114543,
+      "energy_per_success": 1.6667,
+      "successes_per_joule": 0.6000
+    },
+    "comparison": {
+      "energy_per_trial_ratio": 17.32,
+      "energy_per_success_ratio": 17.56,
+      "energy_effectiveness_ratio": 17.56,
+      "winner": "gpt-4o-mini"
+    }
+  },
+  "latency_metrics": {
+    "gpt-4o-mini": {
+      "mean_ms": 954.0,
+      "median_ms": 842.0,
+      "p95_ms": 1574.0,
+      "p99_ms": 2681.0,
+      "min_ms": 490.0,
+      "max_ms": 15028.0
+    },
+    "deepseek-chat": {
+      "mean_ms": 9968.6,
+      "median_ms": 5158.0,
+      "p95_ms": 31833.0,
+      "p99_ms": 32784.0,
+      "min_ms": 1271.0,
+      "max_ms": 49748.0
+    },
+    "comparison": {
+      "mean_ratio": 10.45,
+      "median_ratio": 6.13,
+      "p95_ratio": 20.22,
+      "p99_ratio": 12.23,
+      "winner": "gpt-4o-mini"
+    }
+  },
+  "robustness_metrics": {
+    "gpt-4o-mini": {
+      "robustness_score": 0.0678,
+      "performance_retention_at_0.3": 0.00,
+      "degradation_0.3": -100.0,
+      "degradation_0.5": -100.0,
+      "degradation_0.7": -90.3
+    },
+    "deepseek-chat": {
+      "robustness_score": 0.0676,
+      "performance_retention_at_0.3": 1.11,
+      "degradation_0.3": -98.9,
+      "degradation_0.5": -99.3,
+      "degradation_0.7": -98.1
+    },
+    "comparison": {
+      "winner_extreme_compression": "deepseek-chat",
+      "winner_moderate_compression": "gpt-4o-mini",
+      "winner_overall": "tied"
+    }
+  },
+  "quality_metrics": {
+    "gpt-4o-mini": {
+      "mean_quality_score": 1.0000,
+      "successful_trials": 567
+    },
+    "deepseek-chat": {
+      "mean_quality_score": 1.0000,
+      "successful_trials": 559
+    },
+    "comparison": {
+      "winner": "tied"
+    }
+  },
+  "overall_verdict": {
+    "winner": "gpt-4o-mini",
+    "reasons": [
+      "4.82x more cost-effective",
+      "17.56x more energy-efficient",
+      "6-20x lower latency",
+      "Equal overall accuracy",
+      "Better at moderate compression"
+    ],
+    "deepseek_advantages": [
+      "Marginally better at extreme compression (0.3, 0.5)",
+      "But absolute performance still near-zero"
+    ],
+    "recommendation": "Use GPT-4o-mini for nearly all applications. Only consider DeepSeek-chat for specific extreme compression research where marginal gains justify cost/energy penalties."
+  },
+  "chart_ready_data": {
+    "pass_rate_by_compression": [
+      {"ratio": 0.3, "gpt-4o-mini": 0.00, "deepseek-chat": 0.30},
+      {"ratio": 0.5, "gpt-4o-mini": 0.00, "deepseek-chat": 0.20},
+      {"ratio": 0.7, "gpt-4o-mini": 2.46, "deepseek-chat": 0.49},
+      {"ratio": 1.0, "gpt-4o-mini": 25.42, "deepseek-chat": 26.50}
+    ],
+    "cost_comparison": [
+      {"metric": "Cost per Trial", "gpt-4o-mini": 0.00001876, "deepseek-chat": 0.00008909},
+      {"metric": "Cost per Success", "gpt-4o-mini": 0.000269, "deepseek-chat": 0.001296}
+    ],
+    "energy_comparison": [
+      {"metric": "Energy per Trial (J)", "gpt-4o-mini": 0.006613, "deepseek-chat": 0.114543},
+      {"metric": "Energy per Success (J)", "gpt-4o-mini": 0.0949, "deepseek-chat": 1.6667}
+    ],
+    "latency_comparison": [
+      {"metric": "Median (ms)", "gpt-4o-mini": 842, "deepseek-chat": 5158},
+      {"metric": "P95 (ms)", "gpt-4o-mini": 1574, "deepseek-chat": 31833},
+      {"metric": "P99 (ms)", "gpt-4o-mini": 2681, "deepseek-chat": 32784}
+    ],
+    "effectiveness_comparison": [
+      {"metric": "Successes per Dollar", "gpt-4o-mini": 3714.35, "deepseek-chat": 771.41},
+      {"metric": "Successes per Joule", "gpt-4o-mini": 10.5383, "deepseek-chat": 0.6000}
+    ]
+  }
+}

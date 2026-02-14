@@ -1,0 +1,502 @@
+{
+  "metadata": {
+    "calculation_date": "2026-01-22T17:38:21.238378",
+    "phase2_compression_savings_percent": 4.89,
+    "ai_energy_estimates_twh": {
+      "low": 50,
+      "medium": 75,
+      "high": 100
+    },
+    "carbon_intensity_g_kwh": {
+      "low": 300,
+      "global_average": 436,
+      "medium": 450,
+      "high": 600
+    },
+    "routing_assumptions": {
+      "conservative": {
+        "routable_fraction": 0.3,
+        "energy_ratio": 0.15
+      },
+      "moderate": {
+        "routable_fraction": 0.4,
+        "energy_ratio": 0.1
+      },
+      "optimistic": {
+        "routable_fraction": 0.5,
+        "energy_ratio": 0.08
+      }
+    },
+    "equivalence_factors": {
+      "cars_annual_mt": 4.6,
+      "flights_transatlantic_mt": 0.9,
+      "trees_annual_mt": 0.022,
+      "homes_annual_mt": 7.5,
+      "gallons_gasoline_mt": 0.00887
+    }
+  },
+  "scenarios": {
+    "conservative": {
+      "base_scenario": {
+        "energy_twh": 50,
+        "carbon_intensity_g_kwh": 300,
+        "total_co2_mt": 15000000.0
+      },
+      "compression_only": {
+        "scenario_name": "Compression Only (conservative)",
+        "total_co2_mt": 15000000.0,
+        "savings_percent": 4.89,
+        "co2_saved_mt": 733500.0,
+        "cars_removed": 159456,
+        "flights_avoided": 815000,
+        "trees_equivalent": 33340909,
+        "homes_powered": 97800,
+        "calculation_formula": "CO2_saved = 15000000.00 MT * 4.89% = 733500.00 MT",
+        "assumptions": {
+          "compression_percent": 4.89,
+          "source": "Phase 2 experimental data (minimal vs full prompts)",
+          "energy_twh": 50,
+          "carbon_intensity_g_kwh": 300
+        }
+      },
+      "routing_only": {
+        "conservative": {
+          "scenario_name": "Routing Only (conservative, conservative)",
+          "total_co2_mt": 15000000.0,
+          "savings_percent": 25.5,
+          "co2_saved_mt": 3825000.0,
+          "cars_removed": 831521,
+          "flights_avoided": 4250000,
+          "trees_equivalent": 173863636,
+          "homes_powered": 510000,
+          "calculation_formula": "Energy_saved = 30% routable * (1 - 15% energy_ratio) = 25.50%\nCO2_saved = 15000000.00 MT * 25.50% = 3825000.00 MT",
+          "assumptions": {
+            "routing_config": "conservative",
+            "routable_fraction": 0.3,
+            "energy_ratio": 0.15,
+            "interpretation": "30% of queries routed to models using 15% of the energy"
+          }
+        },
+        "moderate": {
+          "scenario_name": "Routing Only (moderate, conservative)",
+          "total_co2_mt": 15000000.0,
+          "savings_percent": 36.00000000000001,
+          "co2_saved_mt": 5400000.000000001,
+          "cars_removed": 1173913,
+          "flights_avoided": 6000000,
+          "trees_equivalent": 245454545,
+          "homes_powered": 720000,
+          "calculation_formula": "Energy_saved = 40% routable * (1 - 10% energy_ratio) = 36.00%\nCO2_saved = 15000000.00 MT * 36.00% = 5400000.00 MT",
+          "assumptions": {
+            "routing_config": "moderate",
+            "routable_fraction": 0.4,
+            "energy_ratio": 0.1,
+            "interpretation": "40% of queries routed to models using 10% of the energy"
+          }
+        },
+        "optimistic": {
+          "scenario_name": "Routing Only (optimistic, conservative)",
+          "total_co2_mt": 15000000.0,
+          "savings_percent": 46.0,
+          "co2_saved_mt": 6900000.0,
+          "cars_removed": 1500000,
+          "flights_avoided": 7666666,
+          "trees_equivalent": 313636363,
+          "homes_powered": 920000,
+          "calculation_formula": "Energy_saved = 50% routable * (1 - 8% energy_ratio) = 46.00%\nCO2_saved = 15000000.00 MT * 46.00% = 6900000.00 MT",
+          "assumptions": {
+            "routing_config": "optimistic",
+            "routable_fraction": 0.5,
+            "energy_ratio": 0.08,
+            "interpretation": "50% of queries routed to models using 8% of the energy"
+          }
+        }
+      },
+      "combined": {
+        "conservative": {
+          "scenario_name": "Combined (conservative, conservative)",
+          "total_co2_mt": 15000000.0,
+          "savings_percent": 29.143050000000002,
+          "co2_saved_mt": 4371457.500000001,
+          "cars_removed": 950316,
+          "flights_avoided": 4857175,
+          "trees_equivalent": 198702613,
+          "homes_powered": 582861,
+          "calculation_formula": "Step 1 - Compression: 4.89% savings on all queries\nStep 2 - Remaining energy: 95.11%\nStep 3 - Routing savings: 95.11% * 30% * (1 - 15%) = 24.25%\nTotal savings: 4.89% + 24.25% = 29.14%\nCO2_saved = 15000000.00 MT * 29.14% = 4371457.50 MT",
+          "assumptions": {
+            "compression_percent": 4.89,
+            "routing_config": "conservative",
+            "routable_fraction": 0.3,
+            "energy_ratio": 0.15,
+            "method": "Sequential application (compression first, then routing)"
+          }
+        },
+        "moderate": {
+          "scenario_name": "Combined (moderate, conservative)",
+          "total_co2_mt": 15000000.0,
+          "savings_percent": 39.1296,
+          "co2_saved_mt": 5869440.000000001,
+          "cars_removed": 1275965,
+          "flights_avoided": 6521600,
+          "trees_equivalent": 266792727,
+          "homes_powered": 782592,
+          "calculation_formula": "Step 1 - Compression: 4.89% savings on all queries\nStep 2 - Remaining energy: 95.11%\nStep 3 - Routing savings: 95.11% * 40% * (1 - 10%) = 34.24%\nTotal savings: 4.89% + 34.24% = 39.13%\nCO2_saved = 15000000.00 MT * 39.13% = 5869440.00 MT",
+          "assumptions": {
+            "compression_percent": 4.89,
+            "routing_config": "moderate",
+            "routable_fraction": 0.4,
+            "energy_ratio": 0.1,
+            "method": "Sequential application (compression first, then routing)"
+          }
+        },
+        "optimistic": {
+          "scenario_name": "Combined (optimistic, conservative)",
+          "total_co2_mt": 15000000.0,
+          "savings_percent": 48.640600000000006,
+          "co2_saved_mt": 7296090.000000001,
+          "cars_removed": 1586106,
+          "flights_avoided": 8106766,
+          "trees_equivalent": 331640454,
+          "homes_powered": 972812,
+          "calculation_formula": "Step 1 - Compression: 4.89% savings on all queries\nStep 2 - Remaining energy: 95.11%\nStep 3 - Routing savings: 95.11% * 50% * (1 - 8%) = 43.75%\nTotal savings: 4.89% + 43.75% = 48.64%\nCO2_saved = 15000000.00 MT * 48.64% = 7296090.00 MT",
+          "assumptions": {
+            "compression_percent": 4.89,
+            "routing_config": "optimistic",
+            "routable_fraction": 0.5,
+            "energy_ratio": 0.08,
+            "method": "Sequential application (compression first, then routing)"
+          }
+        }
+      }
+    },
+    "moderate": {
+      "base_scenario": {
+        "energy_twh": 75,
+        "carbon_intensity_g_kwh": 436,
+        "total_co2_mt": 32700000.0
+      },
+      "compression_only": {
+        "scenario_name": "Compression Only (moderate)",
+        "total_co2_mt": 32700000.0,
+        "savings_percent": 4.89,
+        "co2_saved_mt": 1599030.0,
+        "cars_removed": 347615,
+        "flights_avoided": 1776700,
+        "trees_equivalent": 72683181,
+        "homes_powered": 213204,
+        "calculation_formula": "CO2_saved = 32700000.00 MT * 4.89% = 1599030.00 MT",
+        "assumptions": {
+          "compression_percent": 4.89,
+          "source": "Phase 2 experimental data (minimal vs full prompts)",
+          "energy_twh": 75,
+          "carbon_intensity_g_kwh": 436
+        }
+      },
+      "routing_only": {
+        "conservative": {
+          "scenario_name": "Routing Only (conservative, moderate)",
+          "total_co2_mt": 32700000.0,
+          "savings_percent": 25.5,
+          "co2_saved_mt": 8338500.0,
+          "cars_removed": 1812717,
+          "flights_avoided": 9265000,
+          "trees_equivalent": 379022727,
+          "homes_powered": 1111800,
+          "calculation_formula": "Energy_saved = 30% routable * (1 - 15% energy_ratio) = 25.50%\nCO2_saved = 32700000.00 MT * 25.50% = 8338500.00 MT",
+          "assumptions": {
+            "routing_config": "conservative",
+            "routable_fraction": 0.3,
+            "energy_ratio": 0.15,
+            "interpretation": "30% of queries routed to models using 15% of the energy"
+          }
+        },
+        "moderate": {
+          "scenario_name": "Routing Only (moderate, moderate)",
+          "total_co2_mt": 32700000.0,
+          "savings_percent": 36.00000000000001,
+          "co2_saved_mt": 11772000.000000002,
+          "cars_removed": 2559130,
+          "flights_avoided": 13080000,
+          "trees_equivalent": 535090909,
+          "homes_powered": 1569600,
+          "calculation_formula": "Energy_saved = 40% routable * (1 - 10% energy_ratio) = 36.00%\nCO2_saved = 32700000.00 MT * 36.00% = 11772000.00 MT",
+          "assumptions": {
+            "routing_config": "moderate",
+            "routable_fraction": 0.4,
+            "energy_ratio": 0.1,
+            "interpretation": "40% of queries routed to models using 10% of the energy"
+          }
+        },
+        "optimistic": {
+          "scenario_name": "Routing Only (optimistic, moderate)",
+          "total_co2_mt": 32700000.0,
+          "savings_percent": 46.0,
+          "co2_saved_mt": 15042000.0,
+          "cars_removed": 3270000,
+          "flights_avoided": 16713333,
+          "trees_equivalent": 683727272,
+          "homes_powered": 2005600,
+          "calculation_formula": "Energy_saved = 50% routable * (1 - 8% energy_ratio) = 46.00%\nCO2_saved = 32700000.00 MT * 46.00% = 15042000.00 MT",
+          "assumptions": {
+            "routing_config": "optimistic",
+            "routable_fraction": 0.5,
+            "energy_ratio": 0.08,
+            "interpretation": "50% of queries routed to models using 8% of the energy"
+          }
+        }
+      },
+      "combined": {
+        "conservative": {
+          "scenario_name": "Combined (conservative, moderate)",
+          "total_co2_mt": 32700000.0,
+          "savings_percent": 29.143050000000002,
+          "co2_saved_mt": 9529777.350000001,
+          "cars_removed": 2071690,
+          "flights_avoided": 10588641,
+          "trees_equivalent": 433171697,
+          "homes_powered": 1270636,
+          "calculation_formula": "Step 1 - Compression: 4.89% savings on all queries\nStep 2 - Remaining energy: 95.11%\nStep 3 - Routing savings: 95.11% * 30% * (1 - 15%) = 24.25%\nTotal savings: 4.89% + 24.25% = 29.14%\nCO2_saved = 32700000.00 MT * 29.14% = 9529777.35 MT",
+          "assumptions": {
+            "compression_percent": 4.89,
+            "routing_config": "conservative",
+            "routable_fraction": 0.3,
+            "energy_ratio": 0.15,
+            "method": "Sequential application (compression first, then routing)"
+          }
+        },
+        "moderate": {
+          "scenario_name": "Combined (moderate, moderate)",
+          "total_co2_mt": 32700000.0,
+          "savings_percent": 39.1296,
+          "co2_saved_mt": 12795379.200000001,
+          "cars_removed": 2781604,
+          "flights_avoided": 14217088,
+          "trees_equivalent": 581608145,
+          "homes_powered": 1706050,
+          "calculation_formula": "Step 1 - Compression: 4.89% savings on all queries\nStep 2 - Remaining energy: 95.11%\nStep 3 - Routing savings: 95.11% * 40% * (1 - 10%) = 34.24%\nTotal savings: 4.89% + 34.24% = 39.13%\nCO2_saved = 32700000.00 MT * 39.13% = 12795379.20 MT",
+          "assumptions": {
+            "compression_percent": 4.89,
+            "routing_config": "moderate",
+            "routable_fraction": 0.4,
+            "energy_ratio": 0.1,
+            "method": "Sequential application (compression first, then routing)"
+          }
+        },
+        "optimistic": {
+          "scenario_name": "Combined (optimistic, moderate)",
+          "total_co2_mt": 32700000.0,
+          "savings_percent": 48.640600000000006,
+          "co2_saved_mt": 15905476.200000001,
+          "cars_removed": 3457712,
+          "flights_avoided": 17672751,
+          "trees_equivalent": 722976190,
+          "homes_powered": 2120730,
+          "calculation_formula": "Step 1 - Compression: 4.89% savings on all queries\nStep 2 - Remaining energy: 95.11%\nStep 3 - Routing savings: 95.11% * 50% * (1 - 8%) = 43.75%\nTotal savings: 4.89% + 43.75% = 48.64%\nCO2_saved = 32700000.00 MT * 48.64% = 15905476.20 MT",
+          "assumptions": {
+            "compression_percent": 4.89,
+            "routing_config": "optimistic",
+            "routable_fraction": 0.5,
+            "energy_ratio": 0.08,
+            "method": "Sequential application (compression first, then routing)"
+          }
+        }
+      }
+    },
+    "aggressive": {
+      "base_scenario": {
+        "energy_twh": 100,
+        "carbon_intensity_g_kwh": 600,
+        "total_co2_mt": 60000000.0
+      },
+      "compression_only": {
+        "scenario_name": "Compression Only (aggressive)",
+        "total_co2_mt": 60000000.0,
+        "savings_percent": 4.89,
+        "co2_saved_mt": 2934000.0,
+        "cars_removed": 637826,
+        "flights_avoided": 3260000,
+        "trees_equivalent": 133363636,
+        "homes_powered": 391200,
+        "calculation_formula": "CO2_saved = 60000000.00 MT * 4.89% = 2934000.00 MT",
+        "assumptions": {
+          "compression_percent": 4.89,
+          "source": "Phase 2 experimental data (minimal vs full prompts)",
+          "energy_twh": 100,
+          "carbon_intensity_g_kwh": 600
+        }
+      },
+      "routing_only": {
+        "conservative": {
+          "scenario_name": "Routing Only (conservative, aggressive)",
+          "total_co2_mt": 60000000.0,
+          "savings_percent": 25.5,
+          "co2_saved_mt": 15300000.0,
+          "cars_removed": 3326086,
+          "flights_avoided": 17000000,
+          "trees_equivalent": 695454545,
+          "homes_powered": 2040000,
+          "calculation_formula": "Energy_saved = 30% routable * (1 - 15% energy_ratio) = 25.50%\nCO2_saved = 60000000.00 MT * 25.50% = 15300000.00 MT",
+          "assumptions": {
+            "routing_config": "conservative",
+            "routable_fraction": 0.3,
+            "energy_ratio": 0.15,
+            "interpretation": "30% of queries routed to models using 15% of the energy"
+          }
+        },
+        "moderate": {
+          "scenario_name": "Routing Only (moderate, aggressive)",
+          "total_co2_mt": 60000000.0,
+          "savings_percent": 36.00000000000001,
+          "co2_saved_mt": 21600000.000000004,
+          "cars_removed": 4695652,
+          "flights_avoided": 24000000,
+          "trees_equivalent": 981818181,
+          "homes_powered": 2880000,
+          "calculation_formula": "Energy_saved = 40% routable * (1 - 10% energy_ratio) = 36.00%\nCO2_saved = 60000000.00 MT * 36.00% = 21600000.00 MT",
+          "assumptions": {
+            "routing_config": "moderate",
+            "routable_fraction": 0.4,
+            "energy_ratio": 0.1,
+            "interpretation": "40% of queries routed to models using 10% of the energy"
+          }
+        },
+        "optimistic": {
+          "scenario_name": "Routing Only (optimistic, aggressive)",
+          "total_co2_mt": 60000000.0,
+          "savings_percent": 46.0,
+          "co2_saved_mt": 27600000.0,
+          "cars_removed": 6000000,
+          "flights_avoided": 30666666,
+          "trees_equivalent": 1254545454,
+          "homes_powered": 3680000,
+          "calculation_formula": "Energy_saved = 50% routable * (1 - 8% energy_ratio) = 46.00%\nCO2_saved = 60000000.00 MT * 46.00% = 27600000.00 MT",
+          "assumptions": {
+            "routing_config": "optimistic",
+            "routable_fraction": 0.5,
+            "energy_ratio": 0.08,
+            "interpretation": "50% of queries routed to models using 8% of the energy"
+          }
+        }
+      },
+      "combined": {
+        "conservative": {
+          "scenario_name": "Combined (conservative, aggressive)",
+          "total_co2_mt": 60000000.0,
+          "savings_percent": 29.143050000000002,
+          "co2_saved_mt": 17485830.000000004,
+          "cars_removed": 3801267,
+          "flights_avoided": 19428700,
+          "trees_equivalent": 794810454,
+          "homes_powered": 2331444,
+          "calculation_formula": "Step 1 - Compression: 4.89% savings on all queries\nStep 2 - Remaining energy: 95.11%\nStep 3 - Routing savings: 95.11% * 30% * (1 - 15%) = 24.25%\nTotal savings: 4.89% + 24.25% = 29.14%\nCO2_saved = 60000000.00 MT * 29.14% = 17485830.00 MT",
+          "assumptions": {
+            "compression_percent": 4.89,
+            "routing_config": "conservative",
+            "routable_fraction": 0.3,
+            "energy_ratio": 0.15,
+            "method": "Sequential application (compression first, then routing)"
+          }
+        },
+        "moderate": {
+          "scenario_name": "Combined (moderate, aggressive)",
+          "total_co2_mt": 60000000.0,
+          "savings_percent": 39.1296,
+          "co2_saved_mt": 23477760.000000004,
+          "cars_removed": 5103860,
+          "flights_avoided": 26086400,
+          "trees_equivalent": 1067170909,
+          "homes_powered": 3130368,
+          "calculation_formula": "Step 1 - Compression: 4.89% savings on all queries\nStep 2 - Remaining energy: 95.11%\nStep 3 - Routing savings: 95.11% * 40% * (1 - 10%) = 34.24%\nTotal savings: 4.89% + 34.24% = 39.13%\nCO2_saved = 60000000.00 MT * 39.13% = 23477760.00 MT",
+          "assumptions": {
+            "compression_percent": 4.89,
+            "routing_config": "moderate",
+            "routable_fraction": 0.4,
+            "energy_ratio": 0.1,
+            "method": "Sequential application (compression first, then routing)"
+          }
+        },
+        "optimistic": {
+          "scenario_name": "Combined (optimistic, aggressive)",
+          "total_co2_mt": 60000000.0,
+          "savings_percent": 48.640600000000006,
+          "co2_saved_mt": 29184360.000000004,
+          "cars_removed": 6344426,
+          "flights_avoided": 32427066,
+          "trees_equivalent": 1326561818,
+          "homes_powered": 3891248,
+          "calculation_formula": "Step 1 - Compression: 4.89% savings on all queries\nStep 2 - Remaining energy: 95.11%\nStep 3 - Routing savings: 95.11% * 50% * (1 - 8%) = 43.75%\nTotal savings: 4.89% + 43.75% = 48.64%\nCO2_saved = 60000000.00 MT * 48.64% = 29184360.00 MT",
+          "assumptions": {
+            "compression_percent": 4.89,
+            "routing_config": "optimistic",
+            "routable_fraction": 0.5,
+            "energy_ratio": 0.08,
+            "method": "Sequential application (compression first, then routing)"
+          }
+        }
+      }
+    }
+  },
+  "sensitivity_analysis": [
+    {
+      "parameter": "AI Energy Consumption (TWh/year)",
+      "low_value": 50,
+      "mid_value": 75,
+      "high_value": 100,
+      "low_savings_mt": 8530252.8,
+      "mid_savings_mt": 12795379.200000001,
+      "high_savings_mt": 17060505.6
+    },
+    {
+      "parameter": "Carbon Intensity (gCO2/kWh)",
+      "low_value": 300,
+      "mid_value": 436,
+      "high_value": 600,
+      "low_savings_mt": 8804160.0,
+      "mid_savings_mt": 12795379.200000001,
+      "high_savings_mt": 17608320.0
+    },
+    {
+      "parameter": "Compression Savings (%)",
+      "low_value": 3.0,
+      "mid_value": 4.89,
+      "high_value": 7.0,
+      "low_savings_mt": 12399840.0,
+      "mid_savings_mt": 12795379.200000001,
+      "high_savings_mt": 13236960.000000002
+    },
+    {
+      "parameter": "Routing Scenario",
+      "low_value": 30,
+      "mid_value": 40,
+      "high_value": 50,
+      "low_savings_mt": 9529777.350000001,
+      "mid_savings_mt": 12795379.200000001,
+      "high_savings_mt": 15905476.200000001
+    }
+  ],
+  "summary": {
+    "headline_scenario": {
+      "name": "Moderate scenario with moderate routing",
+      "total_ai_co2_mt": 32700000.0,
+      "total_savings_percent": 39.1296,
+      "co2_saved_mt": 12795379.200000001,
+      "equivalent_cars_removed": 2781604,
+      "equivalent_transatlantic_flights": 14217088,
+      "equivalent_trees_planted": 581608145,
+      "equivalent_homes_powered": 1706050
+    },
+    "compression_contribution": {
+      "savings_percent": 4.89,
+      "description": "Direct energy savings from reducing token count via prompt optimization"
+    },
+    "routing_contribution": {
+      "moderate_savings_percent": 36.0,
+      "description": "Energy savings from directing queries to appropriately-sized models"
+    },
+    "range": {
+      "conservative_total_savings_mt": 4371457.500000001,
+      "moderate_total_savings_mt": 12795379.200000001,
+      "aggressive_total_savings_mt": 29184360.000000004
+    }
+  }
+}

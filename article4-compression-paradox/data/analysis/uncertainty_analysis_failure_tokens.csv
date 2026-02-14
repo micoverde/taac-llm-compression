@@ -1,0 +1,4 @@
+ratio,gpt_n_failures,deepseek_n_failures,gpt_median_tokens,deepseek_median_tokens,median_diff,deepseek_to_gpt_ratio,mann_whitney_u,p_value,significant
+0.3,2034,2026,38.0,1024.0,986.0,26.94736842105263,4585.5,0.0,***
+0.5,2034,2030,17.0,265.0,248.0,15.588235294117647,1485.5,0.0,***
+0.7,1984,2024,28.0,123.5,95.5,4.410714285714286,180880.0,0.0,***
