@@ -1,0 +1,16 @@
+{
+  "gpu": "NVIDIA L40S",
+  "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "model_params_b": 1.1,
+  "idle_power_w": 86.73777327935223,
+  "n_trials": 48,
+  "pearson_r": 0.9565,
+  "pearson_p": 3.05e-26,
+  "mape_pct": 97.1,
+  "compression_ratios": [
+    1.0,
+    0.7,
+    0.5,
+    0.3
+  ]
+}
