@@ -1,0 +1,320 @@
+{
+  "metadata": {
+    "data_file": "/home/warrenjo/src/tmp5/plex-vc-fund-platform/research/paper-v4/results/phase2/phase2_20260123_011028.jsonl",
+    "n_observations": 600,
+    "analysis_date": "2026-01-22",
+    "bonferroni_alpha": 0.008333333333333333,
+    "n_comparisons": 6
+  },
+  "descriptive_statistics": {
+    "full": {
+      "n": 150,
+      "total_energy_j": {
+        "mean": 122.74142666666667,
+        "std": 7.699794024392864,
+        "sem": 0.6286855494764509,
+        "median": 126.517,
+        "min": 81.748,
+        "max": 130.886
+      },
+      "inference_energy_j": {
+        "mean": 115.02759999999999,
+        "std": 7.667297235618875,
+        "sem": 0.6260321977839417,
+        "median": 118.793,
+        "min": 74.028,
+        "max": 123.162
+      },
+      "prompt_tokens": {
+        "mean": 48.8,
+        "std": 1.6053601490175626,
+        "median": 49.0
+      },
+      "completion_tokens": {
+        "mean": 255.69333333333333,
+        "std": 3.7558842722675405,
+        "median": 256.0
+      },
+      "total_tokens": {
+        "mean": 304.49333333333334,
+        "std": 4.069441969341061,
+        "median": 305.0
+      },
+      "energy_per_token_mj": {
+        "mean": 403.03469826111035,
+        "std": 23.7467681097564,
+        "sem": 1.938915496969966
+      },
+      "inference_energy_per_token_mj": {
+        "mean": 377.7011680940913,
+        "std": 23.765349618835575,
+        "sem": 1.9404326708331285
+      }
+    },
+    "medium": {
+      "n": 150,
+      "total_energy_j": {
+        "mean": 119.24803333333334,
+        "std": 17.556515856294045,
+        "sem": 1.4334835169667497,
+        "median": 127.9575,
+        "min": 67.519,
+        "max": 130.823
+      },
+      "inference_energy_j": {
+        "mean": 112.03179999999998,
+        "std": 16.549548186212977,
+        "sem": 1.3512649509941546,
+        "median": 120.2345,
+        "min": 62.375,
+        "max": 123.099
+      },
+      "prompt_tokens": {
+        "mean": 34.8,
+        "std": 1.6053601490175626,
+        "median": 35.0
+      },
+      "completion_tokens": {
+        "mean": 239.95333333333335,
+        "std": 32.25409534720617,
+        "median": 256.0
+      },
+      "total_tokens": {
+        "mean": 274.75333333333333,
+        "std": 31.68806365299184,
+        "median": 289.0
+      },
+      "energy_per_token_mj": {
+        "mean": 432.18825888413556,
+        "std": 19.599201032885354,
+        "sem": 1.6002680632266049
+      },
+      "inference_energy_per_token_mj": {
+        "mean": 406.01982364276375,
+        "std": 18.866349494335825,
+        "sem": 1.5404309856712735
+      }
+    },
+    "terse": {
+      "n": 150,
+      "total_energy_j": {
+        "mean": 116.9751,
+        "std": 9.863046393367423,
+        "sem": 0.8053143657716041,
+        "median": 115.8615,
+        "min": 102.713,
+        "max": 130.857
+      },
+      "inference_energy_j": {
+        "mean": 109.76723333333332,
+        "std": 9.313004687043534,
+        "sem": 0.7604036485134933,
+        "median": 108.14150000000001,
+        "min": 96.277,
+        "max": 123.125
+      },
+      "prompt_tokens": {
+        "mean": 31.8,
+        "std": 1.6053601490175626,
+        "median": 32.0
+      },
+      "completion_tokens": {
+        "mean": 237.88,
+        "std": 21.15202879507427,
+        "median": 253.0
+      },
+      "total_tokens": {
+        "mean": 269.68,
+        "std": 22.604958771778936,
+        "median": 287.0
+      },
+      "energy_per_token_mj": {
+        "mean": 434.1645655493155,
+        "std": 18.021177358434066,
+        "sem": 1.4714229697453565
+      },
+      "inference_energy_per_token_mj": {
+        "mean": 407.4455281618236,
+        "std": 17.97741828752032,
+        "sem": 1.4678500565667916
+      }
+    },
+    "minimal": {
+      "n": 150,
+      "total_energy_j": {
+        "mean": 116.73826666666665,
+        "std": 9.274753475018697,
+        "sem": 0.7572804501300312,
+        "median": 119.94200000000001,
+        "min": 102.216,
+        "max": 130.374
+      },
+      "inference_energy_j": {
+        "mean": 109.53030666666668,
+        "std": 8.678012485429523,
+        "sem": 0.7085567523601324,
+        "median": 112.217,
+        "min": 95.78,
+        "max": 122.651
+      },
+      "prompt_tokens": {
+        "mean": 19.4,
+        "std": 2.2525153725015294,
+        "median": 19.0
+      },
+      "completion_tokens": {
+        "mean": 232.2,
+        "std": 29.289574845512394,
+        "median": 256.0
+      },
+      "total_tokens": {
+        "mean": 251.6,
+        "std": 27.17282495633059,
+        "median": 273.0
+      },
+      "energy_per_token_mj": {
+        "mean": 465.73144950293005,
+        "std": 20.064337316250466,
+        "sem": 1.6382462817299093
+      },
+      "inference_energy_per_token_mj": {
+        "mean": 437.0159441887089,
+        "std": 19.52226740793077,
+        "sem": 1.5939864590532253
+      }
+    }
+  },
+  "autocorrelation_analysis": {
+    "full": {
+      "lag1_autocorrelation": 0.293905740446363,
+      "n_actual": 150,
+      "n_effective": 81.85614733922426,
+      "correction_factor": 0.5457076489281618
+    },
+    "medium": {
+      "lag1_autocorrelation": -0.24998834086451852,
+      "n_actual": 150,
+      "n_effective": 249.99378189107358,
+      "correction_factor": 1.6666252126071572
+    },
+    "terse": {
+      "lag1_autocorrelation": -0.16400845879948525,
+      "n_actual": 150,
+      "n_effective": 208.8553056041559,
+      "correction_factor": 1.392368704027706
+    },
+    "minimal": {
+      "lag1_autocorrelation": 0.3098960798803753,
+      "n_actual": 150,
+      "n_effective": 79.02580182345238,
+      "correction_factor": 0.5268386788230159
+    }
+  },
+  "pairwise_t_tests": {
+    "full_vs_medium": {
+      "t_statistic": 2.4970420092615973,
+      "degrees_of_freedom": 304.19527995397146,
+      "p_value_uncorrected": 0.013051939287821668,
+      "p_value_bonferroni": 0.07831163572693,
+      "significant_bonferroni": false,
+      "cohens_d": 0.2577051705273705,
+      "effect_size_interpretation": "small"
+    },
+    "full_vs_terse": {
+      "t_statistic": 5.285858166596831,
+      "degrees_of_freedom": 188.03916303036698,
+      "p_value_uncorrected": 3.4474678489715416e-07,
+      "p_value_bonferroni": 2.068480709382925e-06,
+      "significant_bonferroni": true,
+      "cohens_d": 0.6517256309997919,
+      "effect_size_interpretation": "medium"
+    },
+    "full_vs_minimal": {
+      "t_statistic": 4.458667232391582,
+      "degrees_of_freedom": 151.62483842908279,
+      "p_value_uncorrected": 1.5958902089829863e-05,
+      "p_value_bonferroni": 9.575341253897918e-05,
+      "significant_bonferroni": true,
+      "cohens_d": 0.7042880719086894,
+      "effect_size_interpretation": "medium"
+    },
+    "medium_vs_terse": {
+      "t_statistic": 1.7439112165016495,
+      "degrees_of_freedom": 403.6473531516757,
+      "p_value_uncorrected": 0.0819358373221899,
+      "p_value_bonferroni": 0.4916150239331394,
+      "significant_bonferroni": false,
+      "cohens_d": 0.1596248167254639,
+      "effect_size_interpretation": "negligible"
+    },
+    "medium_vs_minimal": {
+      "t_statistic": 1.6472192694148273,
+      "degrees_of_freedom": 253.12370857286695,
+      "p_value_uncorrected": 0.10075380725815708,
+      "p_value_bonferroni": 0.6045228435489425,
+      "significant_bonferroni": false,
+      "cohens_d": 0.17875624632535708,
+      "effect_size_interpretation": "negligible"
+    },
+    "terse_vs_minimal": {
+      "t_statistic": 0.18996615566932343,
+      "degrees_of_freedom": 148.85524447509442,
+      "p_value_uncorrected": 0.8495944577551606,
+      "p_value_bonferroni": 1.0,
+      "significant_bonferroni": false,
+      "cohens_d": 0.02473863430649415,
+      "effect_size_interpretation": "negligible"
+    }
+  },
+  "energy_per_token_analysis": {
+    "minimal_vs_full": {
+      "t_statistic": 24.69976051147423,
+      "p_value": 2.7477159652918213e-73,
+      "cohens_d": 2.852082676043787,
+      "minimal_mean_mj": 465.73144950293005,
+      "full_mean_mj": 403.03469826111035,
+      "increase_percent": 15.556167127129322
+    }
+  },
+  "regression_analysis": {
+    "energy_vs_tokens": {
+      "slope": 0.31295240234678096,
+      "intercept": 32.822590621659586,
+      "r_squared": 0.6354058268990128,
+      "r_value": 0.7971234702974269,
+      "p_value": 3.913589808424171e-133,
+      "std_err": 0.009694088114289425,
+      "interpretation": "Each additional token costs approximately 312.95 mJ"
+    },
+    "anova": {
+      "f_statistic": 8.443202433321282,
+      "p_value": 1.6782498182388893e-05,
+      "significant": true
+    }
+  },
+  "key_findings": {
+    "output_length_paradox": {
+      "description": "Minimal prompts use MORE energy per token despite shorter prompts",
+      "full_energy_per_token_mj": 403.03469826111035,
+      "minimal_energy_per_token_mj": 465.73144950293005,
+      "increase_percent": 15.556167127129322,
+      "statistical_significance": {
+        "p_value": 2.7477159652918213e-73,
+        "significant": true
+      }
+    },
+    "token_savings": {
+      "full_mean_total_tokens": 304.49333333333334,
+      "minimal_mean_total_tokens": 251.6,
+      "token_reduction_percent": 17.370933134825066
+    },
+    "energy_savings": {
+      "full_mean_energy_j": 122.74142666666667,
+      "minimal_mean_energy_j": 116.73826666666665,
+      "energy_difference_j": 6.0031600000000225,
+      "energy_change_percent": 4.89089964409736
+    },
+    "most_efficient_level": "minimal",
+    "anova_significant": true
+  }
+}
